@@ -1,38 +1,49 @@
 body {
-    background-color: 
-    #cccccc;
+    background-color: #cccccc;
 }
-.row {    
+
+.row {
     height: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #frame {
     vertical-align: middle;
     border: 1px solid black;
     border-radius: 20px;
-    background-color:#171616;
+    background-color: #1d1e22;
     margin: auto;
     text-align: center;
     width: 30em;
     height: 35em;
+    padding: 1em;
 }
 
-#calc-display{
+#calc-display {
     display: block;
     font-family: 'Roboto', sans-serif;
-    font-size:60px;
+    font-size: 60px;
     color: white;
     width: 100%;
     height: 100%;
+    margin-bottom: 1em;
+    background-color: #576574;
 }
 
 button {
     vertical-align: middle;
     border: 1px solid white;
     border-radius: 20px;
-    background-color:#a62121;
+    background-color: #2f3640;
     color: white;
     font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #576574;
 }
 
 .number-button, .operation-button, .equals-button {
@@ -40,6 +51,14 @@ button {
     height: 90%;
     margin: 0.2em;
     font-size: x-large;
+}
+
+.operation-button {
+    background-color: #a62121;
+}
+
+.operation-button:hover {
+    box-shadow: 0 0 5px #a62121, 0 0 10px #a62121, 0 0 20px #a62121, 0 0 30px #a62121;
 }
 
 .reset-button {

@@ -1,0 +1,74 @@
+Thought process:
+
+We need to store the current input, the current operation, and the result.
+We will create event listeners for number buttons, operation buttons, and other buttons like equals and reset.
+We will use event delegation to handle button clicks.
+
+********************************************************************************
+initialize calculator state (input, operation, result)
+
+attach event listener to number buttons
+  update input with clicked number
+
+attach event listener to operation buttons
+  store operation
+  store input as result
+  clear input
+
+attach event listener to equals button
+  perform operation with result and input
+  display result
+  clear input and operation
+
+attach event listener to reset button
+  clear input, operation, and result
+
+  ********************************************************************
+JS File
+
+const calcDisplay = document.getElementById("calc-display");
+let currentInput = "";
+let currentOperation = null;
+let result = null;
+
+function updateDisplay(value) {
+  calcDisplay.textContent = value;
+}
+
+document.getElementById("frame").addEventListener("click", function (event) {
+  const target = event.target;
+
+  if (target.classList.contains("number-button")) {
+    currentInput += target.textContent;
+    updateDisplay(currentInput);
+  } else if (target.classList.contains("operation-button")) {
+    currentOperation = target.textContent;
+    result = parseFloat(currentInput);
+    currentInput = "";
+  } else if (target.classList.contains("equals-button")) {
+    if (currentOperation && result !== null) {
+      switch (currentOperation) {
+        case "+":
+          result += parseFloat(currentInput);
+          break;
+        case "-":
+          result -= parseFloat(currentInput);
+          break;
+        case "*":
+          result *= parseFloat(currentInput);
+          break;
+        case "/":
+          result /= parseFloat(currentInput);
+          break;
+      }
+      updateDisplay(result);
+      currentInput = "";
+      currentOperation = null;
+    }
+  } else if (target.classList.contains("reset-button")) {
+    currentInput = "";
+    currentOperation = null;
+    result = null;
+    updateDisplay("");
+  }
+});
