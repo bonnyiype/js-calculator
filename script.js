@@ -1,111 +1,76 @@
-
-
 //Declaring the Variables
 
 const calcDisplay = document.getElementById("calc-display");
 const calcFrameButtons = document.querySelector("#frame");
 
-let userInput = ""
+let currentInput = "";
 
-let currentOperation = "";
+let currentOperation = null;
 
-let result = "";
+let result = null;
 
 
 //Function to Update the display when operations are performed
 
 function UpdateCalcDisplay(value){
-
-calcDisplay.textContent = value;
-
+  calcDisplay.textContent = value;
 }
 
-//Attaching an event listener to listen the user inputs the & update the value & dipslay
+//Attaching an event listener to listen the user inputs the & update the value & display
 
-calcFrameButtons.addEventListener('click', (event)=>{
+calcFrameButtons.addEventListener('click', (event) => {
 
   const target = event.target;
-// If the button clicked is a number button
 
-if(event.target.classList.contains('number-button')){
+  // If the button clicked is a number button
+  if (target.classList.contains('number-button')) {
+    // Add the value of the button to the currentInput variable
+    currentInput += target.textContent;
 
-  // Add the value of the button to the userInput variable
-  userInput += target.textContent;
-
-  // Update the calculator display with the new userInput value
-
-  UpdateCalcDisplay(userInput)
-
-  console.log(userInput)
-
-
-}
-// else If the button clicked is an operation button
-
-else if (event.target.classList.contains('operation-button')){
-
-  // Set the current operation to the value of the clicked button
-
-  //When an operation button is clicked, the current value of the userInput variable is stored in the result variable. This value becomes the first operand of the calculation, and userInput is cleared to make room for the second operand.
-
-  currentOperation = target.textContent
-
-  console.log(target.textContent)
-// Parse the userInput value as a floating-point number and store it in the result variable
-  
-result = parseFloat(userInput);
-
-console.log(userInput)
-
-  userInput = ''
-
-  console.log(result)
-
-}else if(target.classList.contains("equals-button")){
-
-  if(result && currentOperation !== null && userInput !== ''){
-
-    switch(currentOperation){
-
-      case'+' :
-      
-      result += parseFloat(userInput);
-      break;
-
-      case '-' :
-
-      result -= parseFloat(userInput);
-      break;
-
-      case '*':
-
-      result * parseFloat(userInput);
-      break;
-
-      case '/':
-
-      result /= parseFloat(userInput)
-      break;
-
-    }
-
-  //Update the result with final value
-
-   UpdateCalcDisplay(result)
-
-
+    // Update the calculator display with the new currentInput value
+    UpdateCalcDisplay(currentInput);
   }
 
+  // else If the button clicked is an operation button
+  else if (target.classList.contains('operation-button')) {
+    // Set the current operation to the value of the clicked button
+    currentOperation = target.textContent;
 
+    // Parse the currentInput value as a floating-point number and store it in the result variable
+    result = parseFloat(currentInput);
 
+    // Clear the currentInput variable to make room for the second operand
+    currentInput = '';
+  }
 
+  // else If the button clicked is the equals button
+  else if (target.classList.contains('equals-button')) {
+    // Perform the calculation if there is a current operation and a second operand has been entered
+    if (currentOperation !== null && currentInput !== '') {
+      // Parse the currentInput value as a floating-point number and perform the appropriate operation
+      switch (currentOperation) {
+        case '+':
+          result += parseFloat(currentInput);
+          break;
+        case '-':
+          result -= parseFloat(currentInput);
+          break;
+        case '*':
+          result *= parseFloat(currentInput);
+          break;
+        case '/':
+          result /= parseFloat(currentInput);
+          break;
+      }
 
+      // Update the calculator display with the result
+      UpdateCalcDisplay(result);
 
-}
+      // Reset the variables for the next calculation
+      currentInput = '';
+      currentOperation = null;
+      result = null;
+    }
+  }
 
-
-
-
-})
-
-
+});
