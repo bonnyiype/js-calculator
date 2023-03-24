@@ -37,6 +37,7 @@ calcFrameButtons.addEventListener('click', (event) => {
     currentOperation = target.textContent;
 
     // Parse the currentInput value as a floating-point number and store it in the result variable
+    //When operations button is pressed we store first operand to result variable
     result = parseFloat(currentInput);
 
     // Clear the currentInput variable to make room for the second operand
@@ -46,7 +47,7 @@ calcFrameButtons.addEventListener('click', (event) => {
   // else If the button clicked is the equals button
   else if (target.classList.contains('equals-button')) {
     // Perform the calculation if there is a current operation and a second operand has been entered
-    if (currentOperation !== null && currentInput !== '') {
+    if (result && currentOperation !== null && currentInput !== '') {
       // Parse the currentInput value as a floating-point number and perform the appropriate operation
       switch (currentOperation) {
         case '+':
@@ -71,6 +72,11 @@ calcFrameButtons.addEventListener('click', (event) => {
       currentOperation = null;
       result = null;
     }
+  } else if (target.classList.contains("reset-button")) {
+    currentInput = "";
+    currentOperation = null;
+    result = null;
+    UpdateCalcDisplay("");
   }
-
 });
+
